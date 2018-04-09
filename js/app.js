@@ -1,5 +1,20 @@
-var myApp = angular.module('myApp', []);
+var myApp = angular.module('myApp', ['ngRoute']);
 
-myApp.controller('appController', ['$scope', function($scope) {
-    $scope.message="Welcome to my App";
-}])
+myApp.config(['routeProvider', function($routeProvider) {
+    $routeProvider.
+        when('/login', {
+            templateURL: 'views/login.html',
+            controller: 'RegistrationController'
+        }).
+        when('/register', {
+            templateURL: 'views/register.html',
+            controller: 'RegistrationController' 
+        }).
+        when('/success', {
+            templateURL: 'views/success.html',
+            controller: 'SuccessController' 
+        }).
+        otherwise({
+            redirectTo: '/login'
+        });
+}]);
