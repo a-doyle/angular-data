@@ -1,6 +1,7 @@
 myApp.factory('Authentication', ['$rootScope', '$location', '$firebaseObject', '$firebaseAuth', function($rootScope, $location, firebaseObject, $firebaseAuth) {
     var ref = firebase.database().ref();
     var auth = $firebaseAuth();
+    var myObject;
 
     auth.$onAuthStateChanged(function(authUser) {
         if (authUser) {
@@ -12,7 +13,7 @@ myApp.factory('Authentication', ['$rootScope', '$location', '$firebaseObject', '
         }
     });
 
-    return {
+    myObject = {
         login: function(user) {
             auth.$signInWithEmailAndPassword(user.email, user.password).then(function(user) {
                 $location.path('/success');
@@ -38,11 +39,13 @@ myApp.factory('Authentication', ['$rootScope', '$location', '$firebaseObject', '
                     lastname: user.lastname,
                     email: user.email
                 }); // user info
-                $rootScope.message = "Hi " + user.firstname + ", Thanks for registering";
+                myObject.login(user);
             }).catch(function(error) {
                 $rootScope.message = error.message;
             }); // createUserWithEmailAndPassword
         } // register
-    }; // return
+    }; // myObject
+
+    return myObject;
 
 }]); // factory
