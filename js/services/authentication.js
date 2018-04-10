@@ -8,7 +8,14 @@ myApp.factory('Authentication', ['$rootScope', '$firebaseAuth', function($rootSc
         },
         register: function(user) {
             auth.$createUserWithEmailAndPassword(user.email, user.password).then(function(regUser) {
-                $rootScope.message = "Welcome " + user.firstname + ", Thanks for registering";
+                var regRef = ref.child('users').child(regUser.uid).set({
+                    date: firebase.database.ServerValue.TIMESTAMP,
+                    regUser: regUser.uid,
+                    firstname: user.firstname,
+                    lastname: user.lastname,
+                    email: user.email
+                }); // user info
+                $rootScope.message = "Hi " + user.firstname + ", Thanks for registering";
             }).catch(function(error) {
                 $rootScope.message = error.message;
             }); // creating a user w/ email and password
