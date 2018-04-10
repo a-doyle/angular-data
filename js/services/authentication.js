@@ -25,6 +25,10 @@ myApp.factory('Authentication', ['$rootScope', '$location', '$firebaseObject', '
             return auth.$signOut();
         }, // logout
 
+        requireAuth: function() {
+            return auth.$requireSignIn();
+        }, // require authentication
+
         register: function(user) {
             auth.$createUserWithEmailAndPassword(user.email, user.password).then(function(regUser) {
                 var regRef = ref.child('users').child(regUser.uid).set({
