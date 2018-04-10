@@ -1,10 +1,14 @@
-myApp.factory('Authentication', ['$rootScope', '$firebaseAuth', function($rootScope, $firebaseAuth) {
+myApp.factory('Authentication', ['$rootScope', '$location', '$firebaseAuth', function($rootScope, $location, $firebaseAuth) {
     var ref = firebase.database().ref();
     var auth = $firebaseAuth();
 
     return {
         login: function(user) {
-            $rootScope.message = "Welcome " + $rootScope.user.email;
+            auth.$signInWithEmailAndPassword(user.email, user.password).then(function(user) {
+                $location.path('/success');
+            }).catch(function(error) {
+                $rootScope.message = error.message;
+            }) // signInWithEmailAndPassword
         },
         register: function(user) {
             auth.$createUserWithEmailAndPassword(user.email, user.password).then(function(regUser) {
@@ -18,7 +22,7 @@ myApp.factory('Authentication', ['$rootScope', '$firebaseAuth', function($rootSc
                 $rootScope.message = "Hi " + user.firstname + ", Thanks for registering";
             }).catch(function(error) {
                 $rootScope.message = error.message;
-            }); // creating a user w/ email and password
+            }); // createUserWithEmailAndPassword
         } // register
     }; // return
 
