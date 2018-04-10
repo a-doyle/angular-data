@@ -19,7 +19,12 @@ myApp.factory('Authentication', ['$rootScope', '$location', '$firebaseObject', '
             }).catch(function(error) {
                 $rootScope.message = error.message;
             }); // signInWithEmailAndPassword
-        },
+        }, // login
+
+        logout: function() {
+            return auth.$signOut();
+        }, // logout
+
         register: function(user) {
             auth.$createUserWithEmailAndPassword(user.email, user.password).then(function(regUser) {
                 var regRef = ref.child('users').child(regUser.uid).set({
