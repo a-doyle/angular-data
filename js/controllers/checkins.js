@@ -20,4 +20,10 @@ function($scope, $rootScope, $location, $firebaseObject, $routeParams, $firebase
             $location.path('/checkins/' + $scope.whichuser + '/' + $scope.whichmeeting + '/checkinsList');
         }); // $add
     } // addCheckin
+
+    $scope.deleteCheckin = function(id) {
+        var refDel = ref.child(id);
+        var record = $firebaseObject(refDel);
+        record.$remove(id);
+    }
 }]);
