@@ -32,7 +32,7 @@
 
     <ul class="userlist cf">
         <!-- filter for searching checkins -->
-        <li ng-repeat="checkin in checkins | orderBy: order:direction | filter: { $id: recordId, $: query }">
+        <li ng-class="checkin.userState" ng-repeat="checkin in checkins | orderBy: order:direction | filter: { $id: recordId, $: query }">
             <div class="checkin">
                 <div class="buttons">
                     <button class="btn btn-delete tooltip" ng-click="deleteCheckin(checkin.$id)"><span>Delete this check-in</span></button>
