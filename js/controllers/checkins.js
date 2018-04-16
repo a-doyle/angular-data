@@ -23,6 +23,7 @@ function($scope, $rootScope, $location, $firebaseObject, $routeParams, $firebase
     $scope.showLove = function(myCheckin) {
         myCheckin.show = !myCheckin.show;
 
+        // controls expansion of awards display
         if(myCheckin.userState == 'expanded') {
             myCheckin.userState = '';
         } else {
