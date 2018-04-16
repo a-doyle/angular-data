@@ -20,6 +20,10 @@ function($scope, $rootScope, $location, $firebaseObject, $routeParams, $firebase
         $scope.recordId = checkinsList.$keyAt(whichRecord);
     } // pick a random winner
 
+    $scope.showLove = function(myCheckin) {
+        myCheckin.show = !myCheckin.show;
+    }
+
     $scope.addCheckin = function() {
         $firebaseArray(ref).$add({
             firstname: $scope.user.firstname,
